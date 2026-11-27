@@ -23,4 +23,4 @@ jobs:
         with:
           persist-credentials: false
       - name: Test standalone public code
-        run: node --version && node --test direction.test.mjs
+        run: node --version && node --test *.test.mjs
