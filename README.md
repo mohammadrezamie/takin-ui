@@ -22,6 +22,10 @@ These are pure functions: they do not inspect or mutate DOM, infer CSS `directio
 
 `nextFocus(items, current, key, { orientation, direction, wrap })` computes the next focus ID for a one-dimensional composite widget. Each item is `{id, disabled?}`; pass `null` before focus is established. Horizontal arrows follow LTR/RTL; vertical arrows follow up/down. Home/End select enabled endpoints, optional wrapping skips disabled entries, and Tab/Escape/activation keys are left to the caller. Return value is `{handled, id}`. The caller owns focus, ARIA roles, selection, and keyboard event integration. This is not a complete accessible widget or browser accessibility certification.
 
+## Viewport-safe popovers
+
+`placePopover(anchor, popup, viewport, options)` returns a top/bottom position and constrained size in one caller-supplied CSS-pixel coordinate space. Anchor and viewport are `{x,y,width,height}`, popup is `{width,height}`. Options: `side`, `align` (start/center/end), `direction`, `gap`, `padding`. It prefers the requested side, flips for additional room when needed, shifts horizontally and constrains oversized content. Returns `null` for an offscreen anchor or no usable area. Invalid input throws. The caller handles DOM measurement, rendering, scrolling, clipping ancestors, accessibility and remeasurement; the library does not mount a widget.
+
 ## Integration boundary
 
 This is an independently useful public utility, not a mirror or remote runner for a private application. Consumers should pin a reviewed version and run their own integration checks. A green public CI run certifies only this utility at its tested commit, not any consuming application.
